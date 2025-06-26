@@ -1,18 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require("tailwindcss/colors");
-const {
-  scopedPreflightStyles,
-  isolateInsideOfContainer,
-} = require("tailwindcss-scoped-preflight");
 
-// preflight is disabled because we inject css to the page
-// using preflight will affect page display.
-// instead use a custom plugin to apply preflight only in containers for the extension
-// see: https://github.com/tailwindlabs/tailwindcss/discussions/10332
 module.exports = {
-  corePlugins: {
-    preflight: false,
-  },
   content: ["./src/**/*.tsx", "./public/**/*.html"],
   theme: {
     extend: {
@@ -29,11 +18,6 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    scopedPreflightStyles({
-      isolationStrategy: isolateInsideOfContainer(".swc-preflight"),
-    }),
-    require("daisyui"),
-  ],
+  plugins: ["@tailwindcss/postcss"],
   prefix: "swc-",
 };
